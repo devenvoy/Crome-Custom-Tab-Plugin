@@ -1,0 +1,50 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:2:1-20:12
+INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:2:1-20:12
+	package
+		INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:3:5-51
+	xmlns:android
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:2:11-69
+queries
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:5:5-18:15
+intent#action:name:com.appsflyer.referrer.INSTALL_PROVIDER
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:6:9-8:18
+action#com.appsflyer.referrer.INSTALL_PROVIDER
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:7:13-77
+	android:name
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:7:21-75
+package#com.facebook.katana
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:9:9-54
+	android:name
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:9:18-52
+intent#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+data:scheme:https
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:10:9-14:18
+action#android.intent.action.VIEW
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:11:13-64
+	android:name
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:11:21-62
+category#android.intent.category.BROWSABLE
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:12:13-73
+	android:name
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:12:23-71
+data
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:13:13-43
+	android:scheme
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:13:19-41
+intent#action:name:android.support.customtabs.action.CustomTabsService
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:15:9-17:18
+action#android.support.customtabs.action.CustomTabsService
+ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:16:13-89
+	android:name
+		ADDED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:16:21-87
+uses-sdk
+INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml
+INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml

@@ -1,0 +1,43 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.saurabharora.customtabs" >
+5
+6    <uses-sdk android:minSdkVersion="24" />
+7
+8    <queries>
+8-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:5:5-18:15
+9        <intent>
+9-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:6:9-8:18
+10            <action android:name="com.appsflyer.referrer.INSTALL_PROVIDER" />
+10-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:7:13-77
+10-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:7:21-75
+11        </intent>
+12
+13        <package android:name="com.facebook.katana" />
+13-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:9:9-54
+13-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:9:18-52
+14
+15        <intent>
+15-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:10:9-14:18
+16            <action android:name="android.intent.action.VIEW" />
+16-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:11:13-64
+16-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:11:21-62
+17
+18            <category android:name="android.intent.category.BROWSABLE" />
+18-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:12:13-73
+18-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:12:23-71
+19
+20            <data android:scheme="https" />
+20-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:13:13-43
+20-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:13:19-41
+21        </intent>
+22        <intent>
+22-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:15:9-17:18
+23            <action android:name="android.support.customtabs.action.CustomTabsService" />
+23-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:16:13-89
+23-->D:\Test\Demo-Test\customtabs\src\main\AndroidManifest.xml:16:21-87
+24        </intent>
+25    </queries>
+26
+27</manifest>
