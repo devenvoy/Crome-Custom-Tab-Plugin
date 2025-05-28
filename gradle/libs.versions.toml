@@ -1,7 +1,7 @@
 [versions]
 kotlin_version = "2.0.0"
 compose_bom_version = "2024.09.01"
-agp = "8.8.0"
+agp = "8.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -28,3 +28,4 @@ compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin_version" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin_version" }
+android-library = { id = "com.android.library", version.ref = "agp" }

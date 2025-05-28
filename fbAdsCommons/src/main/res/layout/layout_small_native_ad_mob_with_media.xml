@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.ads.NativeAdLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ad_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/main_ad_background">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="9dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/ad_bg_color"
+        android:layout_margin="5dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="120dp"
+                        android:layout_gravity="center_vertical">
+                        <FrameLayout
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <com.facebook.ads.MediaView
+                                android:id="@+id/mediaView"
+                                android:layout_gravity="center"
+                                android:layout_width="180dp"
+                                android:layout_height="match_parent"
+                                android:minHeight="120dp"/>
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:visibility="gone"
+                                android:id="@+id/mediaView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:id="@+id/adTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/adAttribute"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ad_background"
+                                android:gravity="center"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="@string/Ad"
+                                android:textColor="@color/ad_desc_color"
+                                android:textSize="12sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/adDescription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/subtitle_list_color"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/adAdvertiser"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:visibility="gone"
+                            android:gravity="center_vertical"
+                            android:text="SPONSORED"
+                            android:singleLine="true"
+                            android:textColor="@color/subtitle_list_color"
+                            android:textSize="12sp" />
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/callToAction"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@drawable/bg_button"
+                            android:text="@string/install"
+                            android:translationZ="16dp"
+                            android:elevation="12dp"
+                            android:layout_marginBottom="6dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</com.facebook.ads.NativeAdLayout>
