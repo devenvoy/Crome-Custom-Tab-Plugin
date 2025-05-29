@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -29,8 +29,9 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.browser:browser:1.8.0")
-    implementation("androidx.lifecycle:lifecycle-common:2.7.0") // Fixed version
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0") // Use kotlin-stdlib instead of jdk7
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.lifecycle.common)
+    implementation(libs.kotlin.stdlib)
+//    implementation ("com.saurabharora.customtabs:customtabs:1.1")
 }

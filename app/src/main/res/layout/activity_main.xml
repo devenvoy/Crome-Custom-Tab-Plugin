@@ -8,6 +8,19 @@
     tools:context=".MainActivity">
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="505dp"
+        app:layout_constraintBottom_toTopOf="@+id/someBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/composeCheckbox"
         android:layout_width="match_parent"
@@ -26,14 +39,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/someBtn"
-        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Click me"
-        android:textColor="@color/ad_title_text_color"
-        app:background="@color/ad_bg_color"
+        android:backgroundTint="@color/dialogThemeColor"
+        android:text="@string/click_me"
+        android:textColor="@color/ad_bg_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

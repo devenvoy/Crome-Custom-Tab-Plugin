@@ -56,17 +56,20 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material:material")
-    implementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.runtime:runtime")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation ("androidx.browser:browser:1.8.0")
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.runtime)
+    implementation(libs.gson)
+    implementation (libs.androidx.browser)
     implementation(project(":customtabs"))
     implementation(project(":fbAdsCommons"))
-//    implementation ("com.saurabharora.customtabs:customtabs:1.1")
+
+
+    implementation(libs.play.services.mlkit.face.detection)
+    implementation (libs.tensorflow.lite)
 
 
 }

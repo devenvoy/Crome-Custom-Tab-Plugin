@@ -41,10 +41,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("com.facebook.android:audience-network-sdk:6.20.0")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.audience.network.sdk)
+    implementation(libs.gson)
+    implementation(libs.shimmer)
 
-    implementation ("com.intuit.sdp:sdp-android:1.1.1")
-    implementation ("com.intuit.ssp:ssp-android:1.1.1")
+    implementation (libs.sdp.android)
+    implementation (libs.ssp.android)
 }
