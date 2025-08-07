@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
 
     alias(libs.plugins.compose.compiler)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -13,7 +13,6 @@ android {
     defaultConfig {
         applicationId = "com.demo.hybrid"
         minSdk = 24
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
     }
@@ -38,10 +37,6 @@ android {
         viewBinding = true
         compose = true
     }
-
-//    composeCompiler {
-//        enableStrongSkippingMode = true
-//    }
 }
 
 
@@ -52,6 +47,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,6 +67,13 @@ dependencies {
 
     implementation(libs.play.services.mlkit.face.detection)
     implementation (libs.tensorflow.lite)
+
+    implementation (libs.smile.core)
+    implementation(libs.coil.compose)
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
 
 }

@@ -1,21 +1,28 @@
 package com.demo.hybrid
 
 
-import android.app.Activity
+import FaceClusterer
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Rect
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
+import android.provider.Settings
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.demo.hybrid.databinding.ActivityMainBinding
-import kotlin.math.max
-import kotlin.math.min
+import com.demo.hybrid.faceUtilities.ClusterListScreen
+import com.demo.hybrid.faceUtilities.DatabaseProvider
+import com.demo.hybrid.faceUtilities.EmbeddingExtractor
+import com.demo.hybrid.faceUtilities.FaceEntity
+import com.demo.hybrid.faceUtilities.FaceProcessingWorker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,92 +32,86 @@ class MainActivity : AppCompatActivity() {
     }
     private lateinit var embeddingExtractor: EmbeddingExtractor
 
+    private val appDatabase by lazy {
+        DatabaseProvider.getDatabase(this@MainActivity)
+    }
+
+    private val faceDao by lazy {
+        appDatabase.faceDao()
+    }
+
+    private var clusters: Map<Int, List<FaceEntity>> = emptyMap()
+
+    fun isRPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+
+    fun isExternalStorageManager(): Boolean {
+        return isRPlus() && Environment.isExternalStorageManager()
+    }
+
+    fun launchMediaManagementIntent(callback: () -> Unit) {
+        Intent(Settings.ACTION_REQUEST_MANAGE_MEDIA).apply {
+            data = "package:$packageName".toUri()
+            try {
+                startActivityForResult(this, 300)
+            } catch (e: Exception) {
+//                showErrorToast(e)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        enableEdgeToEdge()
         embeddingExtractor = EmbeddingExtractor(this)
-        initImagePicker()
-        binding.someBtn.setOnClickListener { pickImageAndGetUri() }
+        binding.someBtn.setOnClickListener {
+            /*if (isExternalStorageManager().not()) {
+                launchMediaManagementIntent { }
+                return@setOnClickListener
+            }*/
+            val workRequest = OneTimeWorkRequestBuilder<FaceProcessingWorker>().build()
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(workRequest.id)
+                .observe(this) { workInfo ->
+                    if (workInfo != null && workInfo.state.isFinished) {
+                        Toast.makeText(this, "Face scan complete", Toast.LENGTH_SHORT).show()
+                        loadClustersAndUpdateUI()
+                    }
+                }
+            WorkManager.getInstance(this).enqueue(workRequest)
+        }
 
         binding.composeCheckbox.setContent {
-
-
-            val theme = UseTheme()
-            CompositionLocalProvider(LocalTheme provides theme){
-
-            }
-
-        }
-    }
-
-    private fun cropFace(bitmap: Bitmap, box: Rect): Bitmap {
-        val margin = 500
-        val left = max(box.left - margin, 0)
-        val top = max(box.top - margin, 0)
-        val right = min(box.right + margin, bitmap.width)
-        val bottom = min(box.bottom + margin, bitmap.height)
-
-        // Calculate the new width and height
-        val width = right - left
-        val height = bottom - top
-
-        return Bitmap.createBitmap(bitmap, left, top, width, height)
-    }
-
-
-    private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
-
-    private fun initImagePicker() {
-        imagePickerLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val imageUri: Uri? = result.data?.data
-                if (imageUri != null) {
-                    try {
-                        contentResolver.takePersistableUriPermission(
-                            imageUri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        )
-                    } catch (e: SecurityException) {
-                        e.message?.let { Log.d("Embedding", it) }
-                        Toast.makeText(this, "Permission error", Toast.LENGTH_SHORT).show()
-                    }
-
-
-                    FaceDetector.detectFaces(this, imageUri) { faces, bitmap ->
-                        for (face in faces) {
-
-                            val cropped = cropFace(bitmap, face.boundingBox)
-
-                            binding.imageView.setImageBitmap(cropped)
-
-                            val embedding = embeddingExtractor.getEmbedding(cropped)
-
-                            Log.d("Embedding", embedding.joinToString())
-                        }
-                    }
-
-
-                } else {
-                    Log.d("Embedding", "No image selected")
-                    Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
+            ClusterListScreen(
+                clusters = clusters,
+                onClusterClick = {
+                    Toast.makeText(this, "Cluster $it clicked", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Log.d("Embedding", "Cancelled")
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
+            )
+        }
+        binding.loadCompose.setOnClickListener {
+            loadClustersAndUpdateUI()
+        }
+        loadClustersAndUpdateUI()
+    }
+
+    private fun loadClustersAndUpdateUI() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val groups = FaceClusterer.clusterFromDatabase(faceDao)
+            withContext(Dispatchers.Main) {
+                clusters = groups
+                binding.composeCheckbox.setContent {
+                    ClusterListScreen(
+                        clusters = clusters,
+                        onClusterClick = { clusterId ->
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Cluster $clusterId clicked",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                }
             }
         }
     }
-
-
-    private fun pickImageAndGetUri() {
-        val intent =
-            Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "image/*"
-            }
-        imagePickerLauncher.launch(intent)
-    }
-
 }

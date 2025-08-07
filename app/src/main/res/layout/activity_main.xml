@@ -13,9 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="505dp"
         app:layout_constraintBottom_toTopOf="@+id/someBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,10 +21,12 @@
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/composeCheckbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="@dimen/_450sdp"
+        android:layout_margin="20dp"
+        android:maxHeight="@dimen/_400sdp"
+        app:layout_constraintBottom_toTopOf="@+id/someBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayoutAd"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
@@ -45,11 +44,24 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dialogThemeColor"
         android:text="@string/click_me"
+        app:layout_constraintVertical_bias=".8"
         android:textColor="@color/ad_bg_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayoutAd" />
+
+    <Button
+        android:id="@+id/loadCompose"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:text="@string/reload_view"
+        android:textColor="@color/ad_bg_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/someBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

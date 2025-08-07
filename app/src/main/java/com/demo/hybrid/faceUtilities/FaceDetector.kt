@@ -1,4 +1,4 @@
-package com.demo.hybrid
+package com.demo.hybrid.faceUtilities
 
 import android.content.Context
 import android.graphics.Bitmap

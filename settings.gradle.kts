@@ -23,3 +23,4 @@ rootProject.name = "DemoTest"
 include(":app")
 include(":customtabs")
 include(":fbAdsCommons")
+include(":myPlugin")

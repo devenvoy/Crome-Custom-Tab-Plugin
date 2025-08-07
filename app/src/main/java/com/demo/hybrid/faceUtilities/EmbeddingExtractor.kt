@@ -1,12 +1,12 @@
-package com.demo.hybrid
+package com.demo.hybrid.faceUtilities
 
 import android.content.Context
 import android.graphics.Bitmap
+import androidx.core.graphics.get
+import androidx.core.graphics.scale
 import org.tensorflow.lite.Interpreter
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import androidx.core.graphics.scale
-import androidx.core.graphics.get
 
 class EmbeddingExtractor(context: Context) {
     private val interpreter: Interpreter
@@ -21,11 +21,11 @@ class EmbeddingExtractor(context: Context) {
         interpreter = Interpreter(buffer)
     }
 
-    fun getEmbedding(bitmap: Bitmap): FloatArray {
+    fun getEmbedding(bitmap: Bitmap): DoubleArray {
         val input = preprocess(bitmap)
         val output = Array(1) { FloatArray(128) }
         interpreter.run(input, output)
-        return output[0]
+        return output[0].map { it.toDouble() }.toDoubleArray()
     }
 
     private fun preprocess(bitmap: Bitmap): ByteBuffer {

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DemoTest</string>
     <string name="click_me">Click me</string>
+    <string name="reload_view">Reload view</string>
 </resources>
