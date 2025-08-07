@@ -191,7 +191,7 @@ object FbCommonsAds {
             val inflater = LayoutInflater.from(this)
             val nativeAdLayout = inflater.inflate(
                 R.layout.layout_small_native_ad_mob_with_media,
-                null
+                frameLayout
             ) as NativeAdLayout
 
             nativeAd.unregisterView()

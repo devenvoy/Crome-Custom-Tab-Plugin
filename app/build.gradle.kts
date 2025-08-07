@@ -60,9 +60,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.runtime)
     implementation(libs.gson)
-    implementation (libs.androidx.browser)
-    implementation(project(":customtabs"))
-    implementation(project(":fbAdsCommons"))
+//    implementation (libs.androidx.browser)
+//    implementation(project(":customtabs"))
+//    implementation(project(":fbAdsCommons"))
+    implementation(project(":mediation"))
 
 
     implementation(libs.play.services.mlkit.face.detection)

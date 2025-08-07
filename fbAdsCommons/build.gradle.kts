@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.audience.network.sdk)
+    implementation("com.google.android.gms:play-services-ads:23.6.0")
     implementation(libs.gson)
     implementation(libs.shimmer)
 

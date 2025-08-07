@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,12 +16,12 @@
         app:layout_constraintBottom_toTopOf="@+id/someBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/composeCheckbox"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_450sdp"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:maxHeight="@dimen/_400sdp"
         app:layout_constraintBottom_toTopOf="@+id/someBtn"
@@ -29,15 +29,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
+ <!--   <FrameLayout
         android:id="@+id/frameLayoutAd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
+<!--
     <Button
         android:id="@+id/someBtn"
         android:layout_width="200dp"
@@ -62,6 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/someBtn" />
+-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
