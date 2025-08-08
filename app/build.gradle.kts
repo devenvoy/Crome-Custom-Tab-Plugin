@@ -63,8 +63,7 @@ dependencies {
 //    implementation (libs.androidx.browser)
 //    implementation(project(":customtabs"))
 //    implementation(project(":fbAdsCommons"))
-    implementation(project(":mediation"))
-
+    implementation(project(":common"))
 
     implementation(libs.play.services.mlkit.face.detection)
     implementation (libs.tensorflow.lite)

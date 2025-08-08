@@ -22,6 +22,9 @@ dependencyResolutionManagement {
 rootProject.name = "DemoTest"
 include(":app")
 include(":fbAdsCommons")
-include(":mediation")
 //include(":customtabs")
 //include(":myPlugin")
+include(":common")
+include(":common:fbAds")
+include(":common:googleAds")
+include(":common:core")

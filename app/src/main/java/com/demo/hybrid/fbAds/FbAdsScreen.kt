@@ -18,15 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.devansh.common.CommonAdManager.loadAndShowNativeAd
-import com.devansh.common.CommonAdManager.showAdaptiveBannerAd
-import com.devansh.common.CommonAdManager.showAppOpenAd
-import com.devansh.common.CommonAdManager.showBannerAd
-import com.devansh.common.CommonAdManager.showInterstitialAd
-import com.devansh.common.CommonAdManager.showNativeAd
-import com.devansh.common.CommonAdManager.showRewardAd
-import com.devansh.common.CommonAdManager.showRewardInterstitialAd
-import com.devansh.common.CommonAdManager.showSmallNativeAd
+import com.devansh.common.CommonGoogleAdManager.loadAndShowNativeAd
+import com.devansh.common.CommonGoogleAdManager.showAdaptiveBannerAd
+import com.devansh.common.CommonGoogleAdManager.showAppOpenAd
+import com.devansh.common.CommonGoogleAdManager.showBannerAd
+import com.devansh.common.CommonGoogleAdManager.showInterstitialAd
+import com.devansh.common.CommonGoogleAdManager.showNativeAd
+import com.devansh.common.CommonGoogleAdManager.showRewardAd
+import com.devansh.common.CommonGoogleAdManager.showRewardInterstitialAd
+import com.devansh.common.CommonGoogleAdManager.showSmallNativeAd
 
 @Composable
 fun FbAdsScreen(modifier: Modifier = Modifier) {

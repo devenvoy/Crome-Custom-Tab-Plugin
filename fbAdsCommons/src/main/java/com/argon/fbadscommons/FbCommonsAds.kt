@@ -222,7 +222,6 @@ object FbCommonsAds {
                 clickableViews.add(nativeAdCallToAction)
 //                clickableViews.add(nativeAdIcon)
 
-                // Register the Title and CTA button to listen for clicks.
                 nativeAd.registerViewForInteraction(
                     nativeAdLayout, nativeAdMedia, clickableViews
                 )
