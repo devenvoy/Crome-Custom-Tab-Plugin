@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.audience.network.sdk)
+    api(libs.audience.network.sdk)
     implementation(project(":common:core"))
     implementation(libs.androidx.cardview)
 }

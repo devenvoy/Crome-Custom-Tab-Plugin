@@ -8,8 +8,8 @@ import com.facebook.ads.AdError
 import com.facebook.ads.AudienceNetworkAds
 import com.facebook.ads.InterstitialAd
 import com.facebook.ads.InterstitialAdListener
-import com.facebook.ads.RewardedVideoAd
-import com.facebook.ads.RewardedVideoAdListener
+import com.facebook.ads.RewardedInterstitialAd
+import com.facebook.ads.RewardedInterstitialAdListener
 
 class FbInterstitial @JvmOverloads constructor(
     context: Context,
@@ -20,20 +20,21 @@ class FbInterstitial @JvmOverloads constructor(
     val adsTimeInterval: Long = 0
 ) {
     private var interstitialAd: InterstitialAd? = null
-    private var rewardedVideoAd: RewardedVideoAd? = null
+    private var rewardedInterstitialAd: RewardedInterstitialAd? = null
     var lastTimeStampForInter: Long = 0
 
     init {
         lastTimeStampForInter = System.currentTimeMillis()
         AudienceNetworkAds.initialize(context)
         loadInterstitialAd(context)
-        loadRewardVideoAd(context)
+        loadRewardedInterstitialAd(context)
     }
 
     fun loadInterstitialAd(
         context: Context,
         onAdLoaded: (() -> Unit)? = null,
-        onAdLoadFailed: ((String) -> Unit)? = null
+        onAdLoadFailed: ((String) -> Unit)? = null,
+        onAdDismiss: (() -> Unit)? = null
     ) {
         if (!isInterstitialAdActive) return
         interstitialAd = InterstitialAd(context, interstitialId)
@@ -52,7 +53,8 @@ class FbInterstitial @JvmOverloads constructor(
                     }
 
                     override fun onInterstitialDismissed(ad: Ad?) {
-                        loadInterstitialAd(context)
+                        onAdDismiss?.invoke()
+                        loadInterstitialAd(context, onAdDismiss = onAdDismiss)
                     }
 
                     override fun onInterstitialDisplayed(ad: Ad?) {}
@@ -63,62 +65,74 @@ class FbInterstitial @JvmOverloads constructor(
         )
     }
 
-    fun showInterstitialAd(activity: Activity) {
+    fun showInterstitialAd(
+        activity: Activity,
+        adNotAvailable: (() -> Unit)? = null,
+        onAdDismiss: (() -> Unit)? = null
+    ) {
         if (!isAdReadyToShow()) return
         if (isInterstitialAdInitialized()) {
-            interstitialAd?.show()
+            interstitialAd?.show(interstitialAd?.buildShowAdConfig()?.build())
         } else {
-            showInterstitialAdWithoutInterval(activity)
+            showInterstitialAdWithoutInterval(activity, adNotAvailable, onAdDismiss)
         }
     }
 
-    fun showInterstitialAdWithoutInterval(activity: Activity) {
-        loadInterstitialAd(activity)
+    fun showInterstitialAdWithoutInterval(
+        activity: Activity,
+        adNotAvailable: (() -> Unit)?,
+        onAdDismiss: (() -> Unit)?
+    ) {
+        loadInterstitialAd(activity, {}, { adNotAvailable?.invoke() }, onAdDismiss)
         interstitialAd?.show()
     }
 
     fun isAdReadyToShow() =
         (System.currentTimeMillis() - lastTimeStampForInter) > adsTimeInterval
 
-    fun showRewardVideoAd(
+    fun showRewardedInterstitialAd(
         activity: Activity,
         onRewardEarned: () -> Unit,
         adNotAvailable: (() -> Unit)? = null,
+        onAdDismiss: (() -> Unit)? = null,
     ) {
-        if (rewardedVideoAd?.isAdLoaded != true || rewardedVideoAd!!.isAdInvalidated) {
+        if (rewardedInterstitialAd == null || !rewardedInterstitialAd!!.isAdLoaded
+            || rewardedInterstitialAd!!.isAdInvalidated
+        ) {
             adNotAvailable?.invoke()
-            loadRewardVideoAd(activity)
+            loadRewardedInterstitialAd(activity, onAdDismiss)
         } else {
-            rewardedVideoAd?.show()
+            rewardedInterstitialAd?.show()
             onRewardEarned()
         }
     }
 
-    private fun loadRewardVideoAd(context: Context) {
+    private fun loadRewardedInterstitialAd(context: Context, onAdDismiss: (() -> Unit)? = null) {
         if (!isRewardVideoAdActive) return
-        rewardedVideoAd = RewardedVideoAd(context, rewardVideoId)
-        rewardedVideoAd?.loadAd(
-            rewardedVideoAd?.buildLoadAdConfig()?.withAdListener(object : RewardedVideoAdListener {
+        rewardedInterstitialAd = RewardedInterstitialAd(context, rewardVideoId)
+        rewardedInterstitialAd?.loadAd(
+            rewardedInterstitialAd?.buildLoadAdConfig()
+                ?.withAdListener(object : RewardedInterstitialAdListener {
                 override fun onError(ad: Ad?, adError: AdError) {
                     Log.d(TAG, adError.errorMessage)
-                    rewardedVideoAd = null
+                    rewardedInterstitialAd = null
                 }
 
                 override fun onAdLoaded(ad: Ad?) {
                     Log.d(TAG, "FB Rewarded Video loaded")
                 }
 
-                override fun onRewardedVideoCompleted() {
-                    Log.d(TAG, "Reward earned")
-                }
+                    override fun onAdClicked(ad: Ad?) {}
+                    override fun onLoggingImpression(ad: Ad?) {}
+                    override fun onRewardedInterstitialCompleted() {
+                        Log.d(TAG, "Reward earned")
+                    }
 
-                override fun onRewardedVideoClosed() {
-                    Log.d(TAG, "Reward video closed")
-                    loadRewardVideoAd(context)
-                }
-
-                override fun onAdClicked(ad: Ad?) {}
-                override fun onLoggingImpression(ad: Ad?) {}
+                    override fun onRewardedInterstitialClosed() {
+                        Log.d(TAG, "Reward video closed")
+                        onAdDismiss?.invoke()
+                        loadRewardedInterstitialAd(context, onAdDismiss)
+                    }
             })?.build()
         )
     }

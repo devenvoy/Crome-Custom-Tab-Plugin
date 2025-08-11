@@ -18,15 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.devansh.common.CommonGoogleAdManager.loadAndShowNativeAd
-import com.devansh.common.CommonGoogleAdManager.showAdaptiveBannerAd
-import com.devansh.common.CommonGoogleAdManager.showAppOpenAd
-import com.devansh.common.CommonGoogleAdManager.showBannerAd
-import com.devansh.common.CommonGoogleAdManager.showInterstitialAd
-import com.devansh.common.CommonGoogleAdManager.showNativeAd
-import com.devansh.common.CommonGoogleAdManager.showRewardAd
-import com.devansh.common.CommonGoogleAdManager.showRewardInterstitialAd
-import com.devansh.common.CommonGoogleAdManager.showSmallNativeAd
+import com.devansh.common.CommonFBAdManager.loadAndShowNativeAd
+import com.devansh.common.CommonFBAdManager.showAdaptiveBannerAd
+import com.devansh.common.CommonFBAdManager.showInterstitialAd
+import com.devansh.common.CommonFBAdManager.showNativeAd
+import com.devansh.common.CommonFBAdManager.showRewardAd
+import com.devansh.common.CommonFBAdManager.showRewardInterstitialAd
+import com.devansh.common.CommonFBAdManager.showSmallNativeAd
 
 @Composable
 fun FbAdsScreen(modifier: Modifier = Modifier) {
@@ -35,7 +33,7 @@ fun FbAdsScreen(modifier: Modifier = Modifier) {
 
     val bannerView = remember {
         FrameLayout(context).apply {
-            post { showBannerAd() }
+            post { showAdaptiveBannerAd() }
         }
     }
 
@@ -64,9 +62,6 @@ fun FbAdsScreen(modifier: Modifier = Modifier) {
         item { AdButton(title = "show Inter") { activity?.showInterstitialAd() } }
         item { AdButton(title = "show Rewarded Inter") { activity?.showRewardInterstitialAd({}) } }
 
-        stickyHeader { Title("App Open Ad") }
-        item { AdButton(title = "show app open") { showAppOpenAd(activity!!) } }
-
         stickyHeader { Title("Reward Ad") }
         item { AdButton(title = "show Rewarded") { activity?.showRewardAd { } } }
     }
@@ -89,9 +84,7 @@ private fun AdaptiveBannerAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            FrameLayout(ctx).apply {
-                showAdaptiveBannerAd(isCollapsable = true, isBottom = true)
-            }
+            FrameLayout(ctx).apply { showAdaptiveBannerAd() }
         }
     )
 }
@@ -100,12 +93,7 @@ private fun AdaptiveBannerAd(modifier: Modifier = Modifier) {
 private fun NativeAd(modifier: Modifier = Modifier, frameLayout: FrameLayout) {
     AndroidView(
         modifier = modifier,
-        factory = { ctx ->
-//            FrameLayout(ctx).apply {
-//                showNativeAd()
-//            }
-            frameLayout
-        }
+        factory = { ctx -> frameLayout }
     )
 }
 
@@ -114,9 +102,7 @@ private fun SmallNativeAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            FrameLayout(ctx).apply {
-                showSmallNativeAd(true)
-            }
+            FrameLayout(ctx).apply { showSmallNativeAd() }
         }
     )
 }

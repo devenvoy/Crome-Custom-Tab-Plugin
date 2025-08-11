@@ -114,9 +114,7 @@ private fun SmallNativeAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            FrameLayout(ctx).apply {
-                showSmallNativeAd(true)
-            }
+            FrameLayout(ctx).apply { showSmallNativeAd() }
         }
     )
 }

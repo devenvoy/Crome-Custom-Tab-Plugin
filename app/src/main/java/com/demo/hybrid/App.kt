@@ -1,13 +1,14 @@
 package com.demo.hybrid
 
 import android.app.Application
+import com.devansh.common.CommonFBAdManager
 import com.devansh.common.CommonGoogleAdManager
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-//        FbCommonsAds.init(jsonString = jsonString, application = this) {}
-        CommonGoogleAdManager.init(admobAdModel, onAdsInitialized = {}, applicationContext)
+//        CommonGoogleAdManager.init(admobAdModel, onAdsInitialized = {}, applicationContext)
+        CommonFBAdManager.init(fbAdModel, onAdsInitialized = {}, applicationContext)
     }
 
     companion object {
@@ -37,7 +38,7 @@ class App : Application() {
           "bannerId": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
           "nativeId": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
           "appOpenId": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
-          "rewardId": "VID_HD_16_9_15S_LINK#YOUR_PLACEMENT_ID",
+          "rewardId": "VID_HD_16_9_46S_APP_INSTALL#YOUR_PLACEMENT_ID",
           "rewardInterstitialId": "VID_HD_16_9_15S_LINK#YOUR_PLACEMENT_ID",
           "isAppIdActive": true,
           "isInterstitialAdActive": true,
