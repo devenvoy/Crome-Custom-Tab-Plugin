@@ -124,11 +124,7 @@ class Interstitial @JvmOverloads constructor(
                         onAdDismiss?.invoke()
                     }
                 }
-            rewardedInterstitialAd?.show(
-                activity
-            ) {
-                onRewardEarned()
-            }
+            rewardedInterstitialAd?.show(activity) { onRewardEarned() }
             loadRewardedInterstitialAd(activity)
         }
     }

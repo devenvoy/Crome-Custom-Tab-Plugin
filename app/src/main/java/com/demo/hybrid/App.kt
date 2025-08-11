@@ -1,14 +1,24 @@
 package com.demo.hybrid
 
 import android.app.Application
-import com.devansh.common.CommonFBAdManager
-import com.devansh.common.CommonGoogleAdManager
+import androidx.core.content.edit
+import com.devansh.common.CommonAdManager
+import com.devansh.common.CommonAdManager.setPreferredNetwork
+import com.devansh.common.core.AdNetwork
+import com.devansh.common.core.Ad_MODEL_STORE_KEY
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-//        CommonGoogleAdManager.init(admobAdModel, onAdsInitialized = {}, applicationContext)
-        CommonFBAdManager.init(fbAdModel, onAdsInitialized = {}, applicationContext)
+//        CommonAdManager.init(admobAdModel, onAdsInitialized = {}, applicationContext)
+        getSharedPreferences(Ad_MODEL_STORE_KEY, MODE_PRIVATE).edit {
+            putString(AdNetwork.GOOGLE.name, admobAdModel)
+            putString(AdNetwork.FACEBOOK.name, fbAdModel)
+            commit()
+        }
+        setPreferredNetwork(AdNetwork.FACEBOOK, AdNetwork.GOOGLE)
+        CommonAdManager.init(onAdsInitialized = {}, applicationContext)
+
     }
 
     companion object {

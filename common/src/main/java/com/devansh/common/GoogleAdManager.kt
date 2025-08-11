@@ -7,20 +7,23 @@ import android.os.Looper
 import android.util.Log
 import android.widget.FrameLayout
 import com.devansh.common.core.AdModel
-import com.devansh.common.fbads.FacebookBanner
-import com.devansh.common.fbads.FbInterstitial
-import com.devansh.common.fbads.FbNative
-import com.devansh.common.fbads.FbReward
+import com.devansh.common.googleads.AppOpenAdManager
+import com.devansh.common.googleads.Banner
 import com.devansh.common.googleads.CommonGdprDialog
-import com.facebook.ads.AudienceNetworkAds
+import com.devansh.common.googleads.Interstitial
+import com.devansh.common.googleads.Native
+import com.devansh.common.googleads.OnShowAdCompleteListener
+import com.devansh.common.googleads.Reward
+import com.google.android.gms.ads.MobileAds
 import com.google.gson.Gson
 
-object CommonFBAdManager {
+object GoogleAdManager {
     private var adModel = AdModel()
-    private var interstitialAd: FbInterstitial? = null
-    private var nativeAd: FbNative? = null
-    private var rewardedAd: FbReward? = null
-    private var bannerAd: FacebookBanner? = null
+    private var appOpenAdManager: AppOpenAdManager? = null
+    private var interstitialAd: Interstitial? = null
+    private var nativeAd: Native? = null
+    private var rewardedAd: Reward? = null
+    private var bannerAd: Banner? = null
 
     fun init(
         jsonString: String,
@@ -33,7 +36,7 @@ object CommonFBAdManager {
         this.adModel = adModel
         val context = context.applicationContext
         if (adModel.isAppIdActive) {
-            AudienceNetworkAds.initialize(context)
+            MobileAds.initialize(context)
             setAppId(context, onAdsInitialized)
         }
     }
@@ -43,7 +46,7 @@ object CommonFBAdManager {
         failedCallBack: ((String) -> Unit)? = null,
         onRewardEarned: () -> Unit
     ) {
-        rewardedAd?.showRewardAd(this, {}, failedCallBack, onRewardEarned)
+        rewardedAd?.showRewardAd(this, failedCallBack, onRewardEarned)
     }
 
     fun initWithGdpr(
@@ -56,7 +59,7 @@ object CommonFBAdManager {
         Log.e("TAG111", "init: $adModel")
         if (adModel.isAppIdActive) {
             CommonGdprDialog.checkGDPR(activity) {
-                AudienceNetworkAds.initialize(activity)
+                MobileAds.initialize(activity)
                 setAppId(activity, onAdsInitialized)
             }
         }
@@ -76,10 +79,10 @@ object CommonFBAdManager {
 
                 onAdsInitialized()
 
-                /*  if (adModel.isAppOpenAdActive) {
-                      appOpenAdManager =
-                          AppOpenAdManager(context, adModel.appOpenId, adModel.adsTimeInterval)
-                  }*/
+                if (adModel.isAppOpenAdActive) {
+                    appOpenAdManager =
+                        AppOpenAdManager(context, adModel.appOpenId, adModel.adsTimeInterval)
+                }
             }, 1000)
         } catch (e: Exception) {
             Log.e("TAG000", "Failed to load meta-data, NameNotFound: " + e.message)
@@ -88,7 +91,7 @@ object CommonFBAdManager {
 
     private fun initReward(context: Context) {
         if (rewardedAd != null) return
-        rewardedAd = FbReward(
+        rewardedAd = Reward(
             context,
             adModel.rewardId,
             adModel.isRewardAdActive
@@ -97,7 +100,7 @@ object CommonFBAdManager {
 
     private fun initBanner() {
         if (bannerAd != null) return
-        bannerAd = FacebookBanner(
+        bannerAd = Banner(
             adModel.bannerId,
             adModel.isBannerAdActive
         )
@@ -105,7 +108,7 @@ object CommonFBAdManager {
 
     private fun initNative(context: Context) {
         if (nativeAd != null) return
-        nativeAd = FbNative(
+        nativeAd = Native(
             context,
             adModel.nativeId,
             adModel.isNativeAdActive
@@ -114,7 +117,7 @@ object CommonFBAdManager {
 
     private fun initInterstitial(context: Context) {
         if (interstitialAd != null) return
-        interstitialAd = FbInterstitial(
+        interstitialAd = Interstitial(
             context,
             adModel.interstitialId,
             adModel.rewardInterstitialId,
@@ -125,11 +128,13 @@ object CommonFBAdManager {
     }
 
 
-    /*   fun showAppOpenAd(activity: Activity, onComplete: () -> Unit = {}) {
-           appOpenAdManager?.showAdIfAvailable(activity, object : OnShowAdCompleteListener {
-               override fun onShowAdComplete() = onComplete()
-           })
-       }*/
+    fun showAppOpenAd(activity: Activity, onComplete: () -> Unit = {}) {
+        appOpenAdManager?.showAdIfAvailable(activity, object : OnShowAdCompleteListener {
+            override fun onShowAdComplete() {
+                onComplete()
+            }
+        })
+    }
 
     // Interstitial
     fun loadInterstitialAd(
@@ -163,17 +168,21 @@ object CommonFBAdManager {
         onAdDismiss: (() -> Unit)? = null
     ) {
         initInterstitial(this)
-        interstitialAd?.showRewardedInterstitialAd(
-            this,
-            onRewardEarned,
-            adNotAvailable,
-            onAdDismiss
-        )
+        interstitialAd?.showRewardInterstitialAd(this, onRewardEarned, adNotAvailable, onAdDismiss)
     }
 
-    fun FrameLayout.showAdaptiveBannerAd() {
+    // Banner
+    fun FrameLayout.showBannerAd() {
         initBanner()
-        bannerAd?.showAdaptiveBannerAd(this)
+        bannerAd?.showBannerAd(this)
+    }
+
+    fun FrameLayout.showAdaptiveBannerAd(
+        isCollapsable: Boolean = false,
+        isBottom: Boolean = true
+    ) {
+        initBanner()
+        bannerAd?.showAdaptiveBannerAd(this, isCollapsable, isBottom)
     }
 
     // NativeAd
@@ -204,7 +213,7 @@ object CommonFBAdManager {
 
     fun FrameLayout.showSmallNativeAd() {
         initNative(this.context)
-        nativeAd?.showNativeAd(this,false)
+        nativeAd?.loadAndShowNativeAd(this,this.context,false)
     }
 
     fun Activity.showExitDialog(withAd: Boolean = false) {

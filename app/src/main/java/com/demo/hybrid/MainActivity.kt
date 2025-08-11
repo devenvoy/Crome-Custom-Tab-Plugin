@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.demo.hybrid.databinding.ActivityMainBinding
 import com.demo.hybrid.fbAds.FbAdsScreen
-import com.devansh.common.CommonFBAdManager.showExitDialog
-import com.devansh.common.CommonGoogleAdManager.showAppOpenAd
+import com.devansh.common.FBAdManager.showExitDialog
+import com.devansh.common.GoogleAdManager.showAppOpenAd
 import com.devansh.common.fbads.FbNative
 
 class MainActivity : AppCompatActivity() {

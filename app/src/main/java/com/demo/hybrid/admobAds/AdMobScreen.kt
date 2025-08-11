@@ -18,15 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.devansh.common.CommonGoogleAdManager.loadAndShowNativeAd
-import com.devansh.common.CommonGoogleAdManager.showAdaptiveBannerAd
-import com.devansh.common.CommonGoogleAdManager.showAppOpenAd
-import com.devansh.common.CommonGoogleAdManager.showBannerAd
-import com.devansh.common.CommonGoogleAdManager.showInterstitialAd
-import com.devansh.common.CommonGoogleAdManager.showNativeAd
-import com.devansh.common.CommonGoogleAdManager.showRewardAd
-import com.devansh.common.CommonGoogleAdManager.showRewardInterstitialAd
-import com.devansh.common.CommonGoogleAdManager.showSmallNativeAd
+import com.devansh.common.CommonAdManager.showBannerAd
+import com.devansh.common.CommonAdManager.showInterstitialAd
+import com.devansh.common.CommonAdManager.showNativeAd
+import com.devansh.common.CommonAdManager.showRewardAd
+import com.devansh.common.GoogleAdManager.loadAndShowNativeAd
+import com.devansh.common.GoogleAdManager.showAppOpenAd
+import com.devansh.common.GoogleAdManager.showRewardInterstitialAd
+import com.devansh.common.GoogleAdManager.showSmallNativeAd
 
 @Composable
 fun AdMobScreen(modifier: Modifier = Modifier) {
@@ -89,9 +88,7 @@ private fun AdaptiveBannerAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            FrameLayout(ctx).apply {
-                showAdaptiveBannerAd(isCollapsable = true, isBottom = true)
-            }
+            FrameLayout(ctx).apply { showBannerAd() }
         }
     )
 }

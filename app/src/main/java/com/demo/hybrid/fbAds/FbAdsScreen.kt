@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.devansh.common.CommonFBAdManager.loadAndShowNativeAd
-import com.devansh.common.CommonFBAdManager.showAdaptiveBannerAd
-import com.devansh.common.CommonFBAdManager.showInterstitialAd
-import com.devansh.common.CommonFBAdManager.showNativeAd
-import com.devansh.common.CommonFBAdManager.showRewardAd
-import com.devansh.common.CommonFBAdManager.showRewardInterstitialAd
-import com.devansh.common.CommonFBAdManager.showSmallNativeAd
+import com.devansh.common.CommonAdManager.showBannerAd
+import com.devansh.common.CommonAdManager.showInterstitialAd
+import com.devansh.common.CommonAdManager.showNativeAd
+import com.devansh.common.CommonAdManager.showRewardAd
+import com.devansh.common.FBAdManager.loadAndShowNativeAd
+import com.devansh.common.FBAdManager.showRewardInterstitialAd
+import com.devansh.common.FBAdManager.showSmallNativeAd
 
 @Composable
 fun FbAdsScreen(modifier: Modifier = Modifier) {
@@ -32,15 +32,11 @@ fun FbAdsScreen(modifier: Modifier = Modifier) {
     val activity = LocalActivity.current
 
     val bannerView = remember {
-        FrameLayout(context).apply {
-            post { showAdaptiveBannerAd() }
-        }
+        FrameLayout(context).apply { post { showBannerAd() } }
     }
 
     val nativeAdView = remember {
-        FrameLayout(context).apply {
-            post { showNativeAd() }
-        }
+        FrameLayout(context).apply { post { showNativeAd() } }
     }
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -84,7 +80,7 @@ private fun AdaptiveBannerAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            FrameLayout(ctx).apply { showAdaptiveBannerAd() }
+            FrameLayout(ctx).apply { showBannerAd() }
         }
     )
 }
@@ -112,9 +108,7 @@ private fun BigNativeAd(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            FrameLayout(ctx).apply {
-                loadAndShowNativeAd(isBig = true)
-            }
+            FrameLayout(ctx).apply { loadAndShowNativeAd(isBig = true) }
         }
     )
 }
