@@ -39,7 +39,6 @@ class FbNative @JvmOverloads constructor(
     private var nativeAd: NativeAd? = null
 
     init {
-        AudienceNetworkAds.initialize(context)
         loadNativeAd(context)
     }
 

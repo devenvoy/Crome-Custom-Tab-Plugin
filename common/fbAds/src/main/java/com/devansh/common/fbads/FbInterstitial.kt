@@ -25,7 +25,6 @@ class FbInterstitial @JvmOverloads constructor(
 
     init {
         lastTimeStampForInter = System.currentTimeMillis()
-        AudienceNetworkAds.initialize(context)
         loadInterstitialAd(context)
         loadRewardedInterstitialAd(context)
     }
@@ -72,6 +71,7 @@ class FbInterstitial @JvmOverloads constructor(
     ) {
         if (!isAdReadyToShow()) return
         if (isInterstitialAdInitialized()) {
+            lastTimeStampForInter = System.currentTimeMillis()
             interstitialAd?.show(interstitialAd?.buildShowAdConfig()?.build())
         } else {
             showInterstitialAdWithoutInterval(activity, adNotAvailable, onAdDismiss)
@@ -84,6 +84,7 @@ class FbInterstitial @JvmOverloads constructor(
         onAdDismiss: (() -> Unit)?
     ) {
         loadInterstitialAd(activity, {}, { adNotAvailable?.invoke() }, onAdDismiss)
+        lastTimeStampForInter = System.currentTimeMillis()
         interstitialAd?.show()
     }
 
@@ -102,6 +103,7 @@ class FbInterstitial @JvmOverloads constructor(
             adNotAvailable?.invoke()
             loadRewardedInterstitialAd(activity, onAdDismiss)
         } else {
+            lastTimeStampForInter = System.currentTimeMillis()
             rewardedInterstitialAd?.show()
             onRewardEarned()
         }
@@ -113,14 +115,14 @@ class FbInterstitial @JvmOverloads constructor(
         rewardedInterstitialAd?.loadAd(
             rewardedInterstitialAd?.buildLoadAdConfig()
                 ?.withAdListener(object : RewardedInterstitialAdListener {
-                override fun onError(ad: Ad?, adError: AdError) {
-                    Log.d(TAG, adError.errorMessage)
-                    rewardedInterstitialAd = null
-                }
+                    override fun onError(ad: Ad?, adError: AdError) {
+                        Log.d(TAG, adError.errorMessage)
+                        rewardedInterstitialAd = null
+                    }
 
-                override fun onAdLoaded(ad: Ad?) {
-                    Log.d(TAG, "FB Rewarded Video loaded")
-                }
+                    override fun onAdLoaded(ad: Ad?) {
+                        Log.d(TAG, "FB Rewarded Video loaded")
+                    }
 
                     override fun onAdClicked(ad: Ad?) {}
                     override fun onLoggingImpression(ad: Ad?) {}
@@ -133,7 +135,7 @@ class FbInterstitial @JvmOverloads constructor(
                         onAdDismiss?.invoke()
                         loadRewardedInterstitialAd(context, onAdDismiss)
                     }
-            })?.build()
+                })?.build()
         )
     }
 

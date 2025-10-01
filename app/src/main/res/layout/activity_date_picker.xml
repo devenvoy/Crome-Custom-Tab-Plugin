@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom Date Picker Examples"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnSimpleDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simple Date Picker (Default Colors)"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnDarkDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark Theme Date Picker"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnPurpleDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Purple Theme Date Picker"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnOrangeDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Orange Theme Date Picker"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnGreenDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Green Theme (Future Date)"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnCurrentDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current Date Preselected"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💡 Tip: Each picker has different color themes to show customization possibilities"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"
+            android:background="#FFF3E0"
+            android:textColor="#E65100" />
+
+    </LinearLayout>
+
+</ScrollView>

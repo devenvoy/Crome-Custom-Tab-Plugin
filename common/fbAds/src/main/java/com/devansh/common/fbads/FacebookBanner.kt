@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import com.devansh.common.core.R
 import com.facebook.ads.Ad
 import com.facebook.ads.AdError
 import com.facebook.ads.AdListener
@@ -76,7 +77,7 @@ class FacebookBanner @JvmOverloads constructor(
         private const val TAG = "FacebookBanner"
 
         fun FrameLayout.addShimmerForBanner() {
-            val shimmerView = LayoutInflater.from(context).inflate(com.devansh.common.core.R.layout.shimmer_banner, this, false)
+            val shimmerView = LayoutInflater.from(context).inflate(R.layout.shimmer_banner, this, false)
             removeAllViews()
             addView(shimmerView)
         }
