@@ -76,6 +76,7 @@ dependencies {
 //    implementation (libs.androidx.browser)
 //    implementation(project(":customtabs"))
 //    implementation(project(":fbAdsCommons"))
+    implementation(project(":magicDateAndTimePicker"))
     implementation(project(":common"))
 
     implementation(libs.play.services.mlkit.face.detection)

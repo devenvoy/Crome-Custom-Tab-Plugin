@@ -6,11 +6,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.graphics.Color
-import com.apnacomplex.common.util.views.util.CustomDatePicker
 import com.demo.hybrid.databinding.ActivityDatePickerBinding
 import java.util.Calendar
 import java.util.Date
 import androidx.core.graphics.toColorInt
+import com.devenvoy.magicdateandtimepicker.CustomDatePicker
 
 class MainActivity2 : AppCompatActivity() {
 

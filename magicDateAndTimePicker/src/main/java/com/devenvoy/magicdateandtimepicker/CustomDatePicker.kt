@@ -1,4 +1,4 @@
-package com.apnacomplex.common.util.views.util
+package com.devenvoy.magicdateandtimepicker
 
 import android.app.Dialog
 import android.content.Context
@@ -14,13 +14,11 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import kotlinx.parcelize.Parcelize
 import java.util.Calendar
-
 @OptIn(ExperimentalMaterial3Api::class)
 class CustomDatePicker(
     private val context: Context,
@@ -299,7 +297,8 @@ private fun DatePickerDialog(
         disabledContentColor = Color(negativeButtonConfig.disabledContentColor),
     )
 
-    Dialog(
+
+    androidx.compose.ui.window.Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.graphics.Color
-import com.apnacomplex.common.util.views.util.CustomTimePicker
 import com.demo.hybrid.databinding.ActivityMainButtonsBinding
+import com.devenvoy.magicdateandtimepicker.CustomTimePicker
 import java.util.Calendar.HOUR_OF_DAY
 import java.util.Calendar.MINUTE
 

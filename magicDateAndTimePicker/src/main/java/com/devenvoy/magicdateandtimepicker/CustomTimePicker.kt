@@ -1,6 +1,8 @@
-package com.apnacomplex.common.util.views.util
+package com.devenvoy.magicdateandtimepicker
 
+import android.app.Dialog
 import android.content.Context
+import android.os.Bundle
 import android.os.Parcelable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import kotlinx.parcelize.Parcelize
 import java.util.*
@@ -330,7 +333,7 @@ private fun TimePickerDialog(
     }
 }
 
-class TimePickerDialogFragment : androidx.fragment.app.DialogFragment() {
+class TimePickerDialogFragment : DialogFragment() {
 
     companion object {
         private const val ARG_INITIAL_HOUR = "initial_hour"
@@ -352,7 +355,7 @@ class TimePickerDialogFragment : androidx.fragment.app.DialogFragment() {
             callBack: ((Calendar) -> Unit)? = null
         ): TimePickerDialogFragment {
             val fragment = TimePickerDialogFragment()
-            fragment.arguments = android.os.Bundle().apply {
+            fragment.arguments = Bundle().apply {
                 putInt(ARG_INITIAL_HOUR, initialHour)
                 putInt(ARG_INITIAL_MINUTE, initialMinute)
                 putBoolean(ARG_IS_24_HOUR, is24Hour)
@@ -368,7 +371,7 @@ class TimePickerDialogFragment : androidx.fragment.app.DialogFragment() {
 
     private var callBack: ((Calendar) -> Unit)? = null
 
-    override fun onCreateDialog(savedInstanceState: android.os.Bundle?): android.app.Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val args = requireArguments()
         val initialHour = args.getInt(ARG_INITIAL_HOUR, 0)
         val initialMinute = args.getInt(ARG_INITIAL_MINUTE, 0)
@@ -381,7 +384,7 @@ class TimePickerDialogFragment : androidx.fragment.app.DialogFragment() {
         val negativeButtonConfig = args.getParcelable(ARG_NEGATIVE_CONFIG)
             ?: CustomTimePicker.TimePickerButtonConfig()
 
-        val dialog = android.app.Dialog(requireContext())
+        val dialog = Dialog(requireContext())
         val composeView = ComposeView(requireContext())
 
         composeView.setContent {

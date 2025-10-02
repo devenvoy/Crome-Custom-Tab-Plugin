@@ -1,4 +1,4 @@
-package com.demo.hybrid
+package com.devenvoy.magicdateandtimepicker
 
 import android.app.Dialog
 import android.content.Context
@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import kotlinx.parcelize.Parcelize
