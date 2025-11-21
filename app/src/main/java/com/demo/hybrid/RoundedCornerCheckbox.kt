@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
 
 @Composable
 fun RoundedCornerCheckbox(
@@ -79,4 +80,15 @@ fun RoundedCornerCheckbox(
             text = label,
         )
     }
+}
+
+fun String.toColor(): Color {
+    return Color(this.toColorInt())
+}
+
+// Extension function to format date easily
+fun Long.toFormattedDate(pattern: String = "MMM dd, yyyy"): String {
+    val date = java.util.Date(this)
+    val formatter = java.text.SimpleDateFormat(pattern, java.util.Locale.getDefault())
+    return formatter.format(date)
 }

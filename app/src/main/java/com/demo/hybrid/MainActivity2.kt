@@ -195,15 +195,3 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 }
-
-
-fun String.toColor(): Color {
-    return Color(this.toColorInt())
-}
-
-// Extension function to format date easily
-fun Long.toFormattedDate(pattern: String = "MMM dd, yyyy"): String {
-    val date = java.util.Date(this)
-    val formatter = java.text.SimpleDateFormat(pattern, java.util.Locale.getDefault())
-    return formatter.format(date)
-}
